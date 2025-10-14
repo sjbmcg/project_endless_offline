@@ -2,13 +2,13 @@ import sys
 import pygame
 # we'll create a game.py 
 from src.game import Game
-from src.setting import WINDOW_WIDTH, WINDOW_HEIGHT, FPS, BACKGROUND_COLOUR
+from src.setting import WINDOW_WIDTH, WINDOW_HEIGHT, FPS, BACKGROUND_COLOUR, CHARACTER_TEXTURE_PATHS
 
 def main():
     pygame.init()
 
     # let's assume that Game takes three parameters (height, width)
-    game = Game(WINDOW_WIDTH, WINDOW_HEIGHT, FPS, BACKGROUND_COLOUR)
+    game = Game(WINDOW_WIDTH, WINDOW_HEIGHT, FPS, BACKGROUND_COLOUR, CHARACTER_TEXTURE_PATHS)
     game.run()
 
 

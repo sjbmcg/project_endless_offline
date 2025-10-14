@@ -9,16 +9,19 @@ class Direction(Enum):
 
 class Character:
     def __init__(self, x, y):
+        # tryna think of a good pattern 
+
+        # Character configurations 
         self.x = float(x)
         self.y = float(y)
         self.direction = Direction.DOWN
         self.state = CharacterState.STANDING
-        self.gender = 1  # 0 = female, 1 = male
+        self.gender = 0  
         self.skin = 0
         
         self.animation_frame = 0
         self.animation_timer = 0
-        self.animation_speed = 200  # milliseconds per frame
+        self.animation_speed = 200  
         self.speed = 3.0
         
         self.textures = {}
@@ -29,7 +32,6 @@ class Character:
         }
 
     def load_textures(self, texture_paths):
-        """Load character sprite sheets from provided paths"""
         for name, path in texture_paths.items():
             self.textures[name] = pygame.image.load(path).convert_alpha()
 
@@ -92,7 +94,7 @@ class Character:
         
         return (source_x, self.skin * h, w, h)
     
-    def render(self, screen):
+    def render(self, screen, camera_x, camera_y):
         state_name = self.state.name.lower()
         texture = self.textures.get(state_name)
         if not texture:
@@ -108,7 +110,8 @@ class Character:
             sprite = pygame.transform.flip(sprite, True, False)
         
         iso_x, iso_y = self.get_iso_position()
-        screen_x = int(iso_x - w // 2)
-        screen_y = int(iso_y - h)
+
+        screen_x = int(camera_x + iso_x - w // 2)
+        screen_y = int(camera_y + iso_y - h)
         
         screen.blit(sprite, (screen_x, screen_y))
